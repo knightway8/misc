@@ -1,0 +1,68 @@
+body {
+ background:#eadef6 url('yotsuba-b.png') repeat-x 50% 0%;
+ color:#000;
+}
+a:link,
+a:visited,
+p.intro a.email span.name {
+ color:#6100ab;
+}
+a:link:hover {
+ color:#fb35dd;
+}
+a.post_no {
+ color:#800075;
+}
+div.post.reply {
+ background:#e0d6f0;
+ border-color:#a49db3;
+}
+div.post.reply.highlighted {
+ background:#c8b0f0;
+ border-color:#ac8de0;
+}
+div.post.reply div.body a {
+ color:navy;
+}
+p.intro span.subject {
+ color:#8200dd;
+}
+form table tr th {
+ background:#ac88ee;
+}
+div.ban h2 {
+ background:#FCA;
+ color:inherit;
+}
+div.ban {
+ border-color:#4d0088;
+}
+div.ban p {
+ color:black;
+}
+div.pages {
+ background:#e2d6f0;
+ border-color:#c1b7d9;
+}
+div.pages a.selected {
+ color:#6d0088;
+}
+hr {
+ border-color:#c5b7d9;
+}
+div.boardlist {
+ color:#8e66bb;
+}
+div.boardlist a {
+ color:#6d0088;
+}
+table.modlog tr th {
+ background:#c288ee;
+}
+#options_div,
+#alert_div {
+ background:#dcd6f0;
+}
+.desktop-style div.boardlist:nth-child(1) {
+ background-color:#e2d6f0;
+}

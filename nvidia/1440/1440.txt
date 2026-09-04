@@ -1,0 +1,2 @@
+cd /home/linux/Videos/Kooha
+./1440p.sh "1.mp4" "2.mp4"

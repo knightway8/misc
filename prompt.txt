@@ -1,0 +1,31 @@
+Create a thoughtful chess instructional MP4 titled “[VIDEO TITLE]” about “[LESSON TOPIC].”
+
+Use this consistent series style:
+
+• 1920×1080 resolution at 30 fps.
+• Approximately 2½–3½ minutes long.
+• Clean dark navy/charcoal background with white text and restrained teal, gold, green, purple, or red accents.
+• Large, highly readable typography with simple chess-themed diagrams or icons.
+• Subtle fades and a thin progress bar.
+• No busy animation, unnecessary decoration, or background music.
+• Use a realistic American male neural voice similar to Microsoft Andrew Neural. Speak slightly slowly, with a warm, calm, confident coaching tone.
+
+Organize the lesson into six sections:
+
+1. A strong title and short opening hook.
+2. The central idea and why it matters.
+3. A simple three- or four-part thinking framework.
+4. Common bad habits and what to do instead.
+5. A practical routine the viewer can use during games.
+6. A memorable summary and encouraging final thought.
+
+Make the lesson useful for ordinary club players. Explain the reasoning behind the advice, not merely rules to memorize. Keep chess notation, coordinates, and individual positions to a minimum. Use no more than one simple position unless another is genuinely necessary.
+
+Write naturally and thoughtfully. Avoid filler, exaggerated claims, technical jargon, and long lists. The viewer should finish with a clear idea they can apply in their next game.
+
+Normalize the narration volume, verify that the finished MP4 plays correctly, and save it to my Desktop as:
+
+“[VIDEO TITLE].mp4”
+
+
+Create a thoughtful chess instructional MP4 titled “Understanding Weak Squares” about recognizing, creating, and exploiting weak squares.

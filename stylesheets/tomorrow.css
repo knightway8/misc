@@ -1,0 +1,269 @@
+body {
+  background: #1D1F21 none;
+  color: #C5C8C6;
+}
+
+h1,div.subtitle {
+  color: #C5C8C6 !important;
+}
+
+a:link, a:visited, p.intro a.email span.name {
+  color: #81A2BE;
+}
+
+a:link:hover {
+  color: #5F89AC;
+}
+
+a.post_no {
+  color: #C5C8C6;
+}
+
+a.post_no:hover {
+  color: #5F89AC !important;
+}
+
+div.banner {
+  background: #1D1F21;
+}
+
+div.post.reply {
+  background: #282A2E;
+  border: 1px solid #282A2E;
+  margin-bottom: 2px;
+  margin-left: 16px;
+  margin-top: 2px;
+}
+
+div.post.reply.highlighted {
+  background: #1D1D21;
+  border: 1px solid #111111;
+}
+
+div.post.reply div.body a {
+  color: #81a2be;
+}
+
+div.post.reply div.body a:hover {
+  color: #5F89AC;
+}
+
+div.post-hover {
+  border: 1px solid #000000 !important;
+  box-shadow: none !important;
+}
+
+.theme-catalog div.thread:hover {
+  background: #1d1f21;
+  border-color: #111111;
+}
+
+p.intro span.subject {
+  color: #B294BB;
+}
+
+p.intro span.name {
+  color: #C5C8C6;
+}
+
+.quote {
+  color:#ADBD68;
+}
+
+span.heading {
+  color:#FF2200;
+}
+
+form table tr th {
+  background: #282A2E;
+  border: 1px solid #111111;
+  color: #C5C8C6;
+}
+
+div.ban h2 {
+  background: #282A2E;
+  color: inherit;
+}
+
+div.ban {
+  border-color: #282A2E;
+}
+
+div.ban {
+  color: #C5C8C6;
+  background: inherit;
+}
+
+div.pages {
+  background: #1D1F21;
+  border-color: #1D1F21;
+}
+
+div.pages a.selected {
+  color: #81A2BE;
+  font-weight: 700;
+}
+
+div.boardlist {
+  background: #282A2E !important;
+  color: #C5C8C6;
+}
+
+div.boardlist:nth-of-type(1) {
+  border-bottom: 1px solid #111111 !important;
+  box-shadow: 0 0 3px 0 #111111;
+}
+
+div.boardlist a {
+  color: #81A2BE;
+}
+
+hr {
+  background: #282A2E;
+  border: 0;
+  height: 1px;
+}
+
+div#options_div {
+  background: #282A2E;
+}
+
+div.options_tab_icon {
+  color: #AAAAAA;
+}
+
+div.options_tab_icon:hover {
+  background: #111111;
+}
+
+div.options_tab_icon.active {
+  color: #FF2200;
+}
+
+div.blotter {
+  color: #FF2200;
+}
+
+span.omitted {
+  color: #707070;
+}
+
+p.intro a,span.omitted a {
+  text-decoration: none;
+}
+
+form#quick-reply {
+  padding-right: 1px;
+  border: 1px solid #111111;
+}
+
+span.capcode {
+  background: #112222;
+  padding: 2px 5px;
+  border-radius: 10px;
+}
+
+div#watchlist,div#alert_div {
+  border: 1px solid #111111;
+  background: #282A2E;
+}
+
+div#watchlist a,a.watchThread {
+  color: #81A2BE;
+  text-decoration: none;
+}
+
+div#watchlist a:hover,a.watchThread:hover {
+  color: #5F89AC;
+}
+
+/* Remove the following parts if those annoy you */
+/* Keep small thumbnails in replies */
+.post.reply a:not([data-expanded="true"]) .post-image{
+  width: auto !important;
+  height: auto !important;
+  max-height: 160px;
+  max-width: 160px;
+}
+/*
+.modlog tr:nth-child(even), .modlog th {
+  background: #282A2E;
+}
+*/
+table.modlog {
+  color: #FFFFFF;
+  background: #282A2E;
+}
+
+table.modlog tbody {
+  color: #FFFFFF;
+}
+
+table.modlog tr th,
+table.modlog tr td {
+  background: #282A2E;
+}
+
+table.modlog tr:hover td {
+  background: #383A3E;
+}
+
+.box {
+  background: #282A2E;
+  border-color: #111111;
+  color: #C5C8C6;
+}
+
+.box-title {
+  background: #282A2E;
+  color: #C5C8C6;
+}
+
+table thead th {
+  background: #282A2E;
+  border-color: #111111;
+  color: #C5C8C6;
+}
+
+table tbody tr:nth-of-type( even ) {
+  background: #282A2E;
+}
+
+table.board-list-table .board-uri .board-sfw {
+  color: #81A2BE;
+}
+
+tbody.board-list-omitted td {
+  background: #282A2E;
+  border-color: #111111;
+}
+
+table.board-list-table .board-tags .board-cell:hover {
+  background: #1D1F21;
+}
+table.board-list-table tr:nth-of-type( even ) .board-tags .board-cell {
+  background: #282A2E;
+}
+
+/* Predefined reasons */
+.ReasonTableForm tr:first-child td {
+  background: #282A2E;
+}
+
+.ReasonTableForm tr:hover td {
+  background: #1D1D21;
+}
+
+/* fix for post menu */
+.post-menu {
+  color: #DB7A18;
+}
+
+.post-menu ul {
+  background: #1D1F21;
+}
+
+#quick-reply table {
+  background: #282A2E;
+  border-color: #222222;
+}

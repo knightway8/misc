@@ -1,0 +1,855 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Fedora 44 + NVIDIA RTX 4060 Driver Install Guide</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --panel-soft: #f8fafc;
+      --text: #182230;
+      --muted: #5f6f82;
+      --border: #dce4ee;
+      --accent: #2864dc;
+      --accent-dark: #19499f;
+      --good: #0f7657;
+      --good-bg: #e9f8f2;
+      --warn: #8a4b08;
+      --warn-bg: #fff5df;
+      --danger: #a13030;
+      --danger-bg: #fff0f0;
+      --code-bg: #111827;
+      --code-text: #edf4ff;
+      --shadow: 0 14px 38px rgba(34, 52, 77, 0.11);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0d121b;
+        --panel: #151c27;
+        --panel-soft: #111823;
+        --text: #e7edf6;
+        --muted: #aab7c8;
+        --border: #2c3848;
+        --accent: #76a7ff;
+        --accent-dark: #a8c5ff;
+        --good: #79dab8;
+        --good-bg: #102b25;
+        --warn: #ffc56e;
+        --warn-bg: #332710;
+        --danger: #ff9b9b;
+        --danger-bg: #351b1d;
+        --code-bg: #090d14;
+        --code-text: #edf4ff;
+        --shadow: 0 16px 42px rgba(0, 0, 0, 0.34);
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top right, rgba(40, 100, 220, 0.12), transparent 30rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      line-height: 1.62;
+    }
+
+    a { color: var(--accent); }
+
+    .shell {
+      width: min(980px, calc(100% - 32px));
+      margin: 34px auto 70px;
+    }
+
+    header {
+      padding: clamp(26px, 5vw, 48px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: linear-gradient(145deg, var(--panel), var(--panel-soft));
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.65rem);
+      line-height: 1.03;
+      letter-spacing: -0.045em;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      margin: 20px 0 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .header-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    button, .button-link {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--panel);
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 9px 13px;
+      text-decoration: none;
+      transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+    }
+
+    button:hover, .button-link:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 18px 0;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--panel);
+    }
+
+    nav a {
+      border-radius: 8px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 6px 9px;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      background: var(--panel-soft);
+      color: var(--accent);
+    }
+
+    main {
+      display: grid;
+      gap: 18px;
+    }
+
+    section, details {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--panel);
+      box-shadow: 0 7px 24px rgba(34, 52, 77, 0.05);
+    }
+
+    section {
+      padding: clamp(22px, 4vw, 34px);
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: clamp(1.35rem, 3vw, 1.8rem);
+      line-height: 1.2;
+      letter-spacing: -0.022em;
+    }
+
+    h3 {
+      margin: 24px 0 8px;
+      font-size: 1.08rem;
+    }
+
+    p { margin: 10px 0; }
+
+    ul, ol {
+      margin: 10px 0;
+      padding-left: 1.35rem;
+    }
+
+    li + li { margin-top: 7px; }
+
+    .scope-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .mini-card {
+      padding: 15px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel-soft);
+    }
+
+    .mini-card strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .muted { color: var(--muted); }
+
+    .callout {
+      margin: 16px 0;
+      padding: 14px 16px;
+      border-left: 4px solid var(--accent);
+      border-radius: 9px;
+      background: var(--panel-soft);
+    }
+
+    .callout.good {
+      border-left-color: var(--good);
+      background: var(--good-bg);
+    }
+
+    .callout.warn {
+      border-left-color: var(--warn);
+      background: var(--warn-bg);
+    }
+
+    .callout.danger {
+      border-left-color: var(--danger);
+      background: var(--danger-bg);
+    }
+
+    .step-title {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .step-title input {
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-top: 0.18rem;
+      accent-color: var(--good);
+      flex: 0 0 auto;
+    }
+
+    .step-title label {
+      cursor: pointer;
+    }
+
+    .code-wrap {
+      position: relative;
+      margin: 15px 0;
+      overflow: hidden;
+      border: 1px solid #28364a;
+      border-radius: 13px;
+      background: var(--code-bg);
+    }
+
+    pre {
+      margin: 0;
+      overflow-x: auto;
+      padding: 20px 78px 20px 20px;
+      color: var(--code-text);
+      font: 0.91rem/1.62 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", monospace;
+      white-space: pre;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", monospace;
+    }
+
+    p code, li code {
+      padding: 0.12em 0.36em;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      background: var(--panel-soft);
+      font-size: 0.92em;
+    }
+
+    .copy {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      border-color: #43536a;
+      background: #202b3b;
+      color: #eef4ff;
+      font-size: 0.78rem;
+      padding: 6px 9px;
+    }
+
+    .copy:hover {
+      border-color: #8cb4ff;
+      background: #27364b;
+    }
+
+    .branch {
+      margin-top: 16px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: var(--panel-soft);
+    }
+
+    .branch h3 { margin-top: 0; }
+
+    details {
+      overflow: hidden;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 800;
+      padding: 20px 24px;
+    }
+
+    details > div {
+      padding: 0 24px 24px;
+    }
+
+    .sources {
+      display: grid;
+      gap: 10px;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .sources li {
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--panel-soft);
+    }
+
+    footer {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 0.86rem;
+      text-align: center;
+    }
+
+    @media (max-width: 620px) {
+      .shell {
+        width: min(100% - 20px, 980px);
+        margin-top: 10px;
+      }
+
+      header, section { border-radius: 15px; }
+      pre { padding: 52px 16px 17px; font-size: 0.82rem; }
+    }
+
+    @media print {
+      :root {
+        --bg: #fff;
+        --panel: #fff;
+        --panel-soft: #f6f7f9;
+        --text: #111;
+        --muted: #444;
+        --border: #bbb;
+      }
+
+      body { background: #fff; }
+      .shell { width: 100%; margin: 0; }
+      header, section, details { box-shadow: none; break-inside: avoid; }
+      nav, .header-actions, .copy { display: none !important; }
+      pre {
+        overflow: visible;
+        white-space: pre-wrap;
+        word-break: break-word;
+        padding-right: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <p class="eyebrow">Reusable installation reference</p>
+      <h1>Fedora 44 + NVIDIA RTX 4060</h1>
+      <p class="subtitle">
+        A cautious, repeatable way to move an Alienware Aurora R16 from Mesa
+        NVK/Zink to NVIDIA’s packaged driver stack while preserving Secure Boot.
+      </p>
+      <div class="header-actions">
+        <button type="button" onclick="window.print()">Print / save as PDF</button>
+        <button type="button" id="reset-checklist">Reset checklist</button>
+      </div>
+    </header>
+
+    <nav aria-label="Page sections">
+      <a href="#scope">Scope</a>
+      <a href="#baseline">Baseline logs</a>
+      <a href="#update">Update</a>
+      <a href="#repositories">RPM Fusion</a>
+      <a href="#secure-boot">Secure Boot</a>
+      <a href="#driver">Driver</a>
+      <a href="#verify">Verify</a>
+      <a href="#troubleshooting">Troubleshooting</a>
+    </nav>
+
+    <main>
+      <section id="scope">
+        <h2>What this guide is—and is not</h2>
+        <p>
+          The GNOME report string <code>zink … NVK AD107</code> means the system
+          is using Mesa’s accelerated NVK/Zink graphics stack. Testing NVIDIA’s
+          packaged stack is a reasonable A/B test for the freezes, but it is not
+          a promise that every freeze will disappear.
+        </p>
+
+        <div class="scope-grid">
+          <div class="mini-card">
+            <strong>Designed for</strong>
+            Fedora 44 Workstation, traditional DNF installation, RTX 4060/Ada.
+          </div>
+          <div class="mini-card">
+            <strong>Not designed for</strong>
+            Silverblue, Kinoite, Bazzite, or another rpm-ostree/Atomic system.
+          </div>
+          <div class="mini-card">
+            <strong>Generated</strong>
+            August 19, 2026. Re-check Fedora/RPM Fusion guidance on a later release.
+          </div>
+        </div>
+
+        <div class="callout warn">
+          <strong>Run one section at a time.</strong> Read the expected result
+          before proceeding. These buttons copy text only; this page never runs
+          shell commands.
+        </div>
+
+        <ul>
+          <li>Back up anything important and save open work.</li>
+          <li>Keep Fedora’s older kernel entry until the new driver is verified.</li>
+          <li>Use RPM Fusion packages—never NVIDIA’s standalone <code>.run</code> installer.</li>
+          <li>Do not mix RPM Fusion drivers with NVIDIA CUDA-repository driver packages.</li>
+        </ul>
+      </section>
+
+      <section id="baseline">
+        <div class="step-title">
+          <input class="step-check" type="checkbox" id="check-baseline">
+          <label for="check-baseline"><h2>0. Save a baseline before changing drivers</h2></label>
+        </div>
+        <p>
+          If the immediately preceding boot ended in a freeze and hard reset,
+          save its relevant kernel messages. If another normal reboot happened
+          afterward, use <code>journalctl --list-boots</code> to find the right boot index.
+        </p>
+
+        <div class="code-wrap">
+          <button class="copy" type="button" data-copy="code-baseline">Copy</button>
+          <pre id="code-baseline">sudo journalctl -k -b -1 --no-pager | grep -Ei 'nouveau|nova|nvk|nvidia|NVRM|Xid|drm|gpu|fifo|hang|fault|timeout|gsp'</pre>
+        </div>
+
+        <p>Record the currently loaded graphics driver:</p>
+
+        <div class="code-wrap">
+          <button class="copy" type="button" data-copy="code-current-driver">Copy</button>
+          <pre id="code-current-driver">lspci -nnk -d 10de:
+lsmod | grep -E '^(nouveau|nova_core|nvidia)\b'</pre>
+        </div>
+      </section>
+
+      <section id="update">
+        <div class="step-title">
+          <input class="step-check" type="checkbox" id="check-update">
+          <label for="check-update"><h2>1. Fully update Fedora, then reboot</h2></label>
+        </div>
+        <p>
+          Rebooting here ensures the NVIDIA module is built for the kernel you
+          are actually running—not the older kernel that happened to be active
+          during an update.
+        </p>
+
+        <div class="code-wrap">
+          <button class="copy" type="button" data-copy="code-update">Copy</button>
+          <pre id="code-update">sudo dnf upgrade --refresh</pre>
+        </div>
+
+        <p>When the update completes normally:</p>
+
+        <div class="code-wrap">
+          <button class="copy" type="button" data-copy="code-first-reboot">Copy</button>
+          <pre id="code-first-reboot">sudo reboot</pre>
+        </div>
+      </section>
+
+      <section id="repositories">
+        <div class="step-title">
+          <input class="step-check" type="checkbox" id="check-repositories">
+          <label for="check-repositories"><h2>2. Enable RPM Fusion and signing tools</h2></label>
+        </div>
+        <p>
+          Fedora does not ship NVIDIA’s driver stack in its base repositories.
+          RPM Fusion packages it for Fedora’s normal update and kernel-module workflow.
+        </p>
+
+        <div class="code-wrap">
+          <button class="copy" type="button" data-copy="code-rpmfusion">Copy</button>
+          <pre id="code-rpmfusion">sudo dnf install \
+  https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+  https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm</pre>
+        </div>
+
+        <div class="code-wrap">
+          <button class="copy" type="button" data-copy="code-signing-tools">Copy</button>
+          <pre id="code-signing-tools">sudo dnf install akmods mokutil openssl</pre>
+        </div>
+      </section>
+
+      <section id="secure-boot">
+        <div class="step-title">
+          <input class="step-check" type="checkbox" id="check-secure-boot">
+          <label for="check-secure-boot"><h2>3. Check Secure Boot before building</h2></label>
+        </div>
+
+        <div class="code-wrap">
+          <button class="copy" type="button" data-copy="code-sb-check">Copy</button>
+          <pre id="code-sb-check">mokutil --sb-state</pre>
+        </div>
+
+        <div class="branch">
+          <h3>If it reports “SecureBoot enabled”</h3>
+          <p>
+            Generate the local akmods signing key first, then request its
+            enrollment. The password requested by <code>mokutil</code> is a
+            temporary, one-time MOK password—not necessarily your Linux password.
+          </p>
+
+          <div class="code-wrap">
+            <button class="copy" type="button" data-copy="code-sb-enroll">Copy</button>
+            <pre id="code-sb-enroll">sudo kmodgenca -a
+sudo mokutil --import /etc/pki/akmods/certs/public_key.der</pre>
+          </div>
+
+          <div class="callout good">
+            Do not reboot yet. Install and build the NVIDIA module in the next
+            sections so it is signed with this key before the MOK-enrollment reboot.
+          </div>
+        </div>
+
+        <div class="branch">
+          <h3>If it reports “SecureBoot disabled”</h3>
+          <p>
+            Skip key generation and MOK enrollment. Continue with the driver installation.
+          </p>
+        </div>
+      </section>
+
+      <section id="driver">
+        <div class="step-title">
+          <input class="step-check" type="checkbox" id="check-driver">
+          <label for="check-driver"><h2>4. Install and build the NVIDIA driver</h2></label>
+        </div>
+        <p>
+          <code>akmod-nvidia</code> is the correct current package for an RTX 4060.
+          Do not select a legacy branch or manually force <code>akmod-nvidia-open</code>.
+          Current packaging chooses the appropriate NVIDIA kernel-module flavor.
+        </p>
+        <p>
+          The CUDA subpackage is optional for display output, but it supplies
+          compute components and <code>nvidia-smi</code>, which is useful for verification.
+        </p>
+
+        <div class="code-wrap">
+          <button class="copy" type="button" data-copy="code-driver-install">Copy</button>
+          <pre id="code-driver-install">sudo dnf install akmod-nvidia xorg-x11-drv-nvidia-cuda</pre>
+        </div>
+
+        <p>
+          Build the module now. Let this command finish and return to the prompt;
+          do not interrupt it or reboot early.
+        </p>
+
+        <div class="code-wrap">
+          <button class="copy" type="button" data-copy="code-akmods">Copy</button>
+          <pre id="code-akmods">sudo akmods --force</pre>
+        </div>
+
+        <p>Confirm that the built module exists:</p>
+
+        <div class="code-wrap">
+          <button class="copy" type="button" data-copy="code-preflight">Copy</button>
+          <pre id="code-preflight">modinfo -F version nvidia
+modinfo -F signer nvidia</pre>
+        </div>
+
+        <div class="callout danger">
+          <strong>Stop before rebooting if <code>modinfo</code> cannot find NVIDIA.</strong>
+          If Secure Boot is enabled, also stop if the signer is blank. Open the
+          troubleshooting section below rather than guessing.
+        </div>
+
+        <p>
+          A manual <code>dracut --force</code> is intentionally omitted. RPM Fusion’s
+          packages handle the required driver configuration, initramfs work, and
+          Nouveau/Nova blacklisting during normal installation.
+        </p>
+      </section>
+
+      <section id="mok-reboot">
+        <div class="step-title">
+          <input class="step-check" type="checkbox" id="check-mok-reboot">
+          <label for="check-mok-reboot"><h2>5. Reboot and enroll the MOK</h2></label>
+        </div>
+
+        <div class="code-wrap">
+          <button class="copy" type="button" data-copy="code-final-reboot">Copy</button>
+          <pre id="code-final-reboot">sudo reboot</pre>
+        </div>
+
+        <div class="branch">
+          <h3>Only when Secure Boot is enabled</h3>
+          <ol>
+            <li>Press a key when the blue MOK screen appears.</li>
+            <li>Select <strong>Enroll MOK</strong>.</li>
+            <li>Select <strong>Continue</strong>, then <strong>Yes</strong>.</li>
+            <li>Enter the one-time password created earlier. No characters may appear while typing.</li>
+            <li>Select <strong>Reboot</strong>.</li>
+          </ol>
+        </div>
+
+        <p>If Secure Boot is disabled, Fedora should simply reboot normally.</p>
+      </section>
+
+      <section id="verify">
+        <div class="step-title">
+          <input class="step-check" type="checkbox" id="check-verify">
+          <label for="check-verify"><h2>6. Verify the active driver</h2></label>
+        </div>
+
+        <div class="code-wrap">
+          <button class="copy" type="button" data-copy="code-verify">Copy</button>
+          <pre id="code-verify">lspci -nnk -d 10de:
+lsmod | grep '^nvidia'
+nvidia-smi</pre>
+        </div>
+
+        <div class="callout good">
+          <strong>Expected:</strong> <code>lspci</code> reports
+          <code>Kernel driver in use: nvidia</code>, several NVIDIA modules appear,
+          and <code>nvidia-smi</code> displays the RTX 4060 and driver version.
+        </div>
+
+        <p>
+          GNOME’s System Details should also stop describing the renderer as
+          NVK/Zink. Use the machine normally and repeat the workloads that
+          preceded the freezes.
+        </p>
+      </section>
+
+      <details id="troubleshooting">
+        <summary>Troubleshooting: build, signing, or another freeze</summary>
+        <div>
+          <h3>If the module build failed</h3>
+          <div class="code-wrap">
+            <button class="copy" type="button" data-copy="code-build-log">Copy</button>
+            <pre id="code-build-log">sudo journalctl -u akmods --no-pager -b</pre>
+          </div>
+
+          <p>
+            Confirm Fedora was rebooted after its last kernel update and that
+            the running kernel has matching development files:
+          </p>
+
+          <div class="code-wrap">
+            <button class="copy" type="button" data-copy="code-kernel-check">Copy</button>
+            <pre id="code-kernel-check">uname -r
+rpm -q kernel-devel-$(uname -r)</pre>
+          </div>
+
+          <p>If the matching package is missing:</p>
+
+          <div class="code-wrap">
+            <button class="copy" type="button" data-copy="code-kernel-devel">Copy</button>
+            <pre id="code-kernel-devel">sudo dnf install kernel-devel-$(uname -r)
+sudo akmods --force</pre>
+          </div>
+
+          <h3>If Secure Boot is enabled but the signer is blank</h3>
+          <p>
+            Confirm the key file exists and rebuild after generating it:
+          </p>
+
+          <div class="code-wrap">
+            <button class="copy" type="button" data-copy="code-rebuild-sign">Copy</button>
+            <pre id="code-rebuild-sign">sudo kmodgenca -a
+sudo mokutil --import /etc/pki/akmods/certs/public_key.der
+sudo akmods --force --rebuild
+modinfo -F signer nvidia</pre>
+          </div>
+
+          <p>
+            Reboot only after the signer is non-empty, then complete the blue
+            MOK enrollment screen.
+          </p>
+
+          <h3>If the computer freezes again</h3>
+          <p>
+            After the forced restart, inspect the affected boot. NVIDIA faults
+            often appear as <code>NVRM: Xid</code>; PCIe, timeout, and GSP messages
+            are also useful.
+          </p>
+
+          <div class="code-wrap">
+            <button class="copy" type="button" data-copy="code-freeze-log">Copy</button>
+            <pre id="code-freeze-log">sudo journalctl -k -b -1 --no-pager | grep -Ei 'NVRM|Xid|nvidia|drm|gpu|pcie|hang|fault|timeout|gsp'</pre>
+          </div>
+
+          <ul>
+            <li>Try the previous Fedora kernel once from GRUB to test for a kernel regression.</li>
+            <li>If both NVK and NVIDIA stacks hard-freeze, run Dell’s F12/ePSA diagnostics and a memory test.</li>
+            <li>Do not make <code>nomodeset</code> a permanent “fix”; it disables normal graphics modesetting.</li>
+            <li>Do not randomly add old Xorg, GDM, DRM-modeset, or blacklist instructions from older guides.</li>
+          </ul>
+
+          <h3>When Pop!_OS becomes a reasonable Plan B</h3>
+          <p>
+            If the correctly loaded NVIDIA stack still freezes, testing the
+            Pop!_OS 24.04 NVIDIA live image is reasonable. Use its demo mode
+            before installing. Remember that current Pop uses the COSMIC Wayland
+            desktop and System76 instructs users to disable Secure Boot.
+          </p>
+        </div>
+      </details>
+
+      <section id="sources">
+        <h2>Primary references</h2>
+        <ul class="sources">
+          <li>
+            <a href="https://docs.mesa3d.org/drivers/nvk.html" target="_blank" rel="noopener">
+              Mesa NVK driver documentation
+            </a>
+          </li>
+          <li>
+            <a href="https://fedoraproject.org/wiki/Changes/NvidiaInstallationWithSecureboot" target="_blank" rel="noopener">
+              Fedora: NVIDIA installation with Secure Boot support
+            </a>
+          </li>
+          <li>
+            <a href="https://rpmfusion.org/Howto/NVIDIA" target="_blank" rel="noopener">
+              RPM Fusion NVIDIA how-to
+            </a>
+          </li>
+          <li>
+            <a href="https://rpmfusion.org/Howto/Secure%20Boot" target="_blank" rel="noopener">
+              RPM Fusion Secure Boot how-to
+            </a>
+          </li>
+          <li>
+            <a href="https://docs.nvidia.com/datacenter/tesla/driver-installation-guide/choose-an-installation-method.html" target="_blank" rel="noopener">
+              NVIDIA: choose a package-manager installation
+            </a>
+          </li>
+          <li>
+            <a href="https://system76.com/pop/download/" target="_blank" rel="noopener">
+              Pop!_OS current downloads and NVIDIA image notes
+            </a>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      Keep this file with your installation notes. Re-check package names and
+      Secure Boot guidance when moving beyond Fedora 44.
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var storageKey = "fedora44-nvidia-guide-checklist-v1";
+      var checks = Array.prototype.slice.call(document.querySelectorAll(".step-check"));
+
+      function loadChecklist() {
+        try {
+          var saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
+          checks.forEach(function (checkbox) {
+            checkbox.checked = Boolean(saved[checkbox.id]);
+          });
+        } catch (error) {
+          /* A blocked file-origin localStorage should not impair the guide. */
+        }
+      }
+
+      function saveChecklist() {
+        var state = {};
+        checks.forEach(function (checkbox) {
+          state[checkbox.id] = checkbox.checked;
+        });
+        try {
+          localStorage.setItem(storageKey, JSON.stringify(state));
+        } catch (error) {
+          /* Ignore storage restrictions. */
+        }
+      }
+
+      function fallbackCopy(text) {
+        var area = document.createElement("textarea");
+        area.value = text;
+        area.setAttribute("readonly", "");
+        area.style.position = "fixed";
+        area.style.opacity = "0";
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        document.body.removeChild(area);
+      }
+
+      function copyText(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          return navigator.clipboard.writeText(text).catch(function () {
+            fallbackCopy(text);
+          });
+        }
+        fallbackCopy(text);
+        return Promise.resolve();
+      }
+
+      document.querySelectorAll(".copy").forEach(function (button) {
+        button.addEventListener("click", function () {
+          var source = document.getElementById(button.getAttribute("data-copy"));
+          var original = button.textContent;
+          copyText(source.textContent.trim()).then(function () {
+            button.textContent = "Copied";
+            window.setTimeout(function () {
+              button.textContent = original;
+            }, 1400);
+          });
+        });
+      });
+
+      checks.forEach(function (checkbox) {
+        checkbox.addEventListener("change", saveChecklist);
+      });
+
+      document.getElementById("reset-checklist").addEventListener("click", function () {
+        checks.forEach(function (checkbox) {
+          checkbox.checked = false;
+        });
+        saveChecklist();
+      });
+
+      loadChecklist();
+    }());
+  </script>
+</body>
+</html>

@@ -1,0 +1,300 @@
+/* Board CSS inspired in large part by the CSS of /art/ (t-thanks guys, sorry for ripping off some of your ideas ;__;)! */
+
+body {
+background: #FEE;
+}
+div.boardlist:not(.bottom) {
+background-color: #FFC4C4!important;
+border-bottom: 1px solid #F88!important;
+color: #707;
+text-align: center;
+padding: 4px 96px;
+opacity: 0.92;
+}
+a[title="Options"] {
+position: absolute;
+right: 12px;
+}
+h1 {
+font-family: tahoma;
+letter-spacing: -1px;
+font-size: 24pt;
+color: #B33
+}
+header div.subtitle {
+font-size: 10pt;
+}
+div.banner {
+background-color: #FFC4C4;
+color: #B33;
+font-size: 12pt;
+}
+div.banner a {
+color: #707;
+}
+div.banner a:hover {
+color: #FFF;
+}
+table * {
+margin: 0px;
+}
+form table tr th {
+background-color: #F88;
+color: #FFF;
+}
+form table tr td, form table tr td a {
+color: #707;
+}
+form table tr td > input:nth-child(2) {
+position: relative;
+top: -2px;   
+}
+hr {
+border-color: #F88 !important;
+}
+a:link, p.intro, a.email, span.name {
+text-decoration: inherit;
+}
+p.intro span.subject {
+color: #000;
+font-weight: bold;
+}
+p.intro, p.intro span.name {
+color: #707;
+}
+p.intro a.email span.name {
+color: #707;
+text-decoration: underline;
+-moz-text-decoration-color: #707;
+text-decoration-color: #707;
+}
+div.post.op p.intro a.email:hover span.name {
+color: #B33;
+text-decoration: underline;
+-moz-text-decoration-color: #B33;
+text-decoration-color: #B33;
+}
+p.intro a.email:hover span.name {
+color: #FFF;
+text-decoration: underline;
+-moz-text-decoration-color: #FFF;
+text-decoration-color: #FFF;
+}
+/* custom /ebola/ flags */
+.flag-us {
+  background-position: 0 -2794px!important;
+  height: 11px;
+  width: 16px;
+  background-image: url('https://i.imgur.com/rN7iTrV.png')!important;
+}
+.flag-es {
+  background-position: 0 -858px!important;
+  height: 11px;
+  width: 16px;
+  background-image: url('https://i.imgur.com/rN7iTrV.png')!important;
+}
+.flag-gb {
+  background-position: 0 -979px!important;
+  height: 11px;
+  width: 16px;
+  background-image: url('https://i.imgur.com/rvkwysK.png')!important;
+}
+.flag-gn {
+  background-position: 0 -1078px!important;
+  height: 11px;
+  width: 16px;
+  background-image: url('https://i.imgur.com/rvkwysK.png')!important;
+}
+.flag-lr {
+  background-position: 0 -1584px!important;
+  height: 11px;
+  width: 16px;
+  background-image: url('https://i.imgur.com/rvkwysK.png')!important;
+}
+.flag-ml {
+  background-position: 0 -1738px!important;
+  height: 11px;
+  width: 16px;
+  background-image: url('https://i.imgur.com/rvkwysK.png')!important;
+}
+.flag-ng {
+  background-position: 0 -1947px!important;
+  height: 11px;
+  width: 16px;
+  background-image: url('https://i.imgur.com/rvkwysK.png')!important;
+}
+.flag-sl {
+  background-position: 0 -2409px!important;
+  height: 11px;
+  width: 16px;
+  background-image: url('https://i.imgur.com/rvkwysK.png')!important;
+}
+.flag-sn {
+  background-position: 0 -2431px!important;
+  height: 11px;
+  width: 16px;
+  background-image: url('https://i.imgur.com/rvkwysK.png')!important;
+}
+.flag-ug {
+  background-position: 0 -2761px!important;
+  height: 11px;
+  width: 16px;
+  background-image: url('https://i.imgur.com/rvkwysK.png')!important;
+}
+
+div.post.reply {
+background: #FFC4C4;
+border-color: #F88;
+}
+div.post.reply.highlighted {
+background: #F88;
+border-color: #CC5D5D;
+}
+div.post.reply:not(.highlighted) span.quote, div.post.op span.quote {
+color: #F0B;
+}
+div.post.reply.highlighted span.quote {
+color: #FFF;
+}
+div.pages {
+color: #707;
+background-color: #FFC4C4;
+}
+p.unimportant {
+color: #707;
+}
+/*bullshit CSS fuckery:*/
+
+#reply_7570, #reply_7667, #reply_17255 {
+animation: ayylmao 20s infinite;
+-webkit-animation: ayyylmao 20s infinite;
+}
+#reply_7570:after, #reply_7667:after, #reply_17255:after {
+color: #FF0;
+content:"AYY LMAO"
+}
+#reply_12909 {
+animation: figureeight 4s linear infinite;
+-webkit-animation: cfigureeight 4s linear infinite;
+}
+[class*='mentioned-19989']:after, #reply_19989 [onclick^='cite'][class='post_no']:after, div.body [onclick*='19989']:after, [id*='post-hover-19989'] [onclick^='cite'][class='post_no']:after {
+content:"9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999"!important;
+}
+[class*='mentioned-20000']:after, #op_20000 [onclick^='cite'][class='post_no']:after, div.body [onclick*='20000']:after {
+content:" (╯°□°)╯︵ ┻━"!important;
+}
+#reply_20002 {
+animation: spin 2s linear infinite;
+-webkit-animation: spin 2s linear infinite;
+}
+#reply_20573 {
+background-image: url('https://i.imgur.com/K13XwLC.png');
+background-repeat: no-repeat;
+background-position: center right;
+}
+@keyframes ayylmao {
+0% {
+transform: translateY(500px);
+}
+50% {
+transform: translateY(-500px);
+}
+100% {
+transform: translateY(500px);
+}
+}
+-webkit-@keyframes ayyylmao {
+0% {
+-webkit-transform: translateY(500px);
+}
+50% {
+-webkit-transform: translateY(-500px);
+}
+100% {
+-webkit-transform: translateY(500px);
+}
+}
+@keyframes spin {
+0% {
+transform: rotate(0deg);
+background-color: #F0F;
+color: #00F
+}
+33% {
+transform: rotate(120deg);
+background-color: #0FF;
+color: #F00
+}
+66% {
+transform: rotate(240deg);
+background-color: #FF0;
+color: #0F0
+}
+100% {
+transform: rotate(360deg);
+background-color: #F0F;
+color: #00F
+}
+}
+@keyframes figureeight {
+0% {
+transform: translate3d(0px,0px,0px);
+}
+12.5% {
+transform: translate3d(200px,-200px,0px);
+}
+37.5% {
+transform: translate3d(600px,200px,0px);
+}
+50% {
+transform: translate3d(800px,0px,0px);
+}
+62.5% {
+transform: translate3d(600px,-200px,0px);
+}
+87.5% {
+transform: translate3d(200px,200px,0px);
+}
+}
+@-webkit-keyframes cfigureeight {
+0% {
+-webkit-transform: translate3d(0px,0px,0px);
+}
+12.5% {
+-webkit-transform: translate3d(200px,-200px,0px);
+}
+37.5% {
+-webkit-transform: translate3d(600px,200px,0px);
+}
+50% {
+-webkit-transform: translate3d(800px,0px,0px);
+}
+62.5% {
+-webkit-transform: translate3d(600px,-200px,0px);
+}
+87.5% {
+-webkit-transform: translate3d(200px,200px,0px);
+}
+}
+-webkit-@keyframes cspin {
+0% {
+-webkit-transform: rotate(0deg);
+-webkit-background-color: #F0F;
+-webkit-color: #00F
+}
+33% {
+-webkit-transform: rotate(120deg);
+-webkit-background-color: #0FF;
+-webkit-color: #F00
+}
+66% {
+-webkit-transform: rotate(240deg);
+-webkit-background-color: #FF0;
+-webkit-color: #0F0
+}
+100% {
+-webkit-transform: rotate(360deg);
+-webkit-background-color: #F0F;
+-webkit-color: #00F
+}
+}
